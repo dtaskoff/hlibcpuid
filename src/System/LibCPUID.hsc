@@ -1,5 +1,6 @@
 module System.LibCPUID
   ( CPUID(..), cpuid
+  , getTotalLogicalCores
   , isCPUIDPresent
   ) where
 
@@ -69,6 +70,13 @@ toMaybeError = \case
       #{const ERR_HANDLE_R} -> "Error on handle read"
       #{const ERR_INVRANGE} -> "Invalid given range"
       _ -> "Unknown error"
+
+-- | Get the total number of logical cores (even if CPUID is not present)
+getTotalLogicalCores :: IO Int
+getTotalLogicalCores = fromIntegral <$> c_cpuid_get_total_cpus
+
+foreign import ccall "cpuid_get_total_cpus"
+  c_cpuid_get_total_cpus :: IO CInt
 
 -- | Check if the CPUID instruction is supported
 isCPUIDPresent :: IO Bool
