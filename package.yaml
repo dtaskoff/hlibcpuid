@@ -1,0 +1,22 @@
+name:                hlibcpuid
+version:             0.1.0.0
+github:              "dtaskoff/hlibcpuid"
+license:             MIT
+author:              "Daniel Taskoff"
+maintainer:          "daniel.taskoff@gmail.com"
+copyright:           "2020 Daniel Taskoff"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+synopsis:            Bindings to https://github.com/anrieff/libcpuid
+category:            Foreign, System
+
+description:         Please see the README on GitHub at <https://github.com/dtaskoff/hlibcpuid#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
