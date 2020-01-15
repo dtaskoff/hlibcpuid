@@ -20,3 +20,14 @@ dependencies:
 
 library:
   source-dirs: src
+  include-dirs: libcpuid/libcpuid
+  c-sources:
+  - libcpuid/libcpuid/asm-bits.c
+  - libcpuid/libcpuid/cpuid_main.c
+  - libcpuid/libcpuid/libcpuid_util.c
+  - libcpuid/libcpuid/msrdriver.c
+  - libcpuid/libcpuid/rdmsr.c
+  - libcpuid/libcpuid/rdtsc.c
+  - libcpuid/libcpuid/recog_amd.c
+  - libcpuid/libcpuid/recog_intel.c
+  cc-options: -DVERSION="0.4.1"
