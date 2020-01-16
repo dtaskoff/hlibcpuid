@@ -47,7 +47,7 @@ cpuid = do
       Nothing ->
         allocaBytes #{size struct cpu_id_t} \cpu_id_t_ptr -> do
           res' <- c_cpu_identify cpu_raw_data_t_ptr cpu_id_t_ptr
-          case toMaybeError res of
+          case toMaybeError res' of
             Just err -> pure $ Left err
             Nothing -> Right <$> peek cpu_id_t_ptr
 
