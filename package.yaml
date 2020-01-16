@@ -37,3 +37,9 @@ library:
   - libcpuid/libcpuid/recog_amd.c
   - libcpuid/libcpuid/recog_intel.c
   cc-options: -DVERSION="0.4.1"
+
+ghc-options:
+- -Wall
+- -Werror
+- -fwarn-incomplete-uni-patterns
+- -fwarn-incomplete-record-updates
