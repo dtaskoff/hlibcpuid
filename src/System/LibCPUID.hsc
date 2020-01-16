@@ -1,5 +1,7 @@
 module System.LibCPUID
-  ( CPUID(..), cpuid
+  (
+  -- * 'CPUID'
+    CPUID(..), cpuid
   , getTotalLogicalCores
   , isCPUIDPresent
   ) where
@@ -10,6 +12,7 @@ import Foreign.Ptr (Ptr)
 import Foreign.Storable (Storable(..))
 
 
+-- | CPU information and features.
 data CPUID = CPUID
   { physicalCores :: Int
   , logicalCores :: Int
@@ -29,6 +32,7 @@ instance Storable CPUID where
     pure CPUID {..}
   poke _ _ = error "CPUID is read-only"
 
+-- | Get CPU information and features, or an error message, if the CPU can't be identified by libcpuid.
 cpuid :: IO (Either String CPUID)
 cpuid = do
   allocaBytes #{size struct cpu_raw_data_t} \cpu_raw_data_t_ptr -> do
@@ -71,14 +75,14 @@ toMaybeError = \case
       #{const ERR_INVRANGE} -> "Invalid given range"
       _ -> "Unknown error"
 
--- | Get the total number of logical cores (even if CPUID is not present)
+-- | Get the total number of logical cores (even if CPUID is not present).
 getTotalLogicalCores :: IO Int
 getTotalLogicalCores = fromIntegral <$> c_cpuid_get_total_cpus
 
 foreign import ccall "cpuid_get_total_cpus"
   c_cpuid_get_total_cpus :: IO CInt
 
--- | Check if the CPUID instruction is supported
+-- | Check if the CPUID instruction is supported.
 isCPUIDPresent :: IO Bool
 isCPUIDPresent = (== 1) <$> c_cpuid_present
 
