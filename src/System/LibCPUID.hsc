@@ -6,15 +6,18 @@ module System.LibCPUID
   , isCPUIDPresent
   ) where
 
+import Foreign.C.String (peekCString)
 import Foreign.C.Types (CInt(..))
 import Foreign.Marshal (allocaBytes)
-import Foreign.Ptr (Ptr)
+import Foreign.Ptr (Ptr, plusPtr)
 import Foreign.Storable (Storable(..))
 
 
 -- | CPU information and features.
 data CPUID = CPUID
-  { physicalCores :: Int
+  { vendorString :: String
+  , brandString :: String
+  , physicalCores :: Int
   , logicalCores :: Int
   , totalLogicalCores :: Int
   }
@@ -25,6 +28,8 @@ instance Storable CPUID where
   alignment _ = #{alignment struct cpu_id_t}
   sizeOf _ = #{size struct cpu_id_t}
   peek ptr = do
+    vendorString <- peekCString $ plusPtr ptr #{offset struct cpu_id_t, vendor_str}
+    brandString <- peekCString $ plusPtr ptr #{offset struct cpu_id_t, brand_str}
     physicalCores <- fromIntegral @CInt <$> #{peek struct cpu_id_t, num_cores} ptr
     logicalCores <- fromIntegral @CInt <$> #{peek struct cpu_id_t, num_logical_cpus} ptr
     totalLogicalCores <- fromIntegral @CInt <$> #{peek struct cpu_id_t, total_logical_cpus} ptr
