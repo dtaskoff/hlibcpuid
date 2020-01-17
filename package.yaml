@@ -60,3 +60,11 @@ ghc-options:
 - -Wall
 - -fwarn-incomplete-uni-patterns
 - -fwarn-incomplete-record-updates
+
+executables:
+  cpuid:
+    main: Main.hs
+    source-dirs: app
+
+    dependencies: hlibcpuid
+    ghc-options: -O2
