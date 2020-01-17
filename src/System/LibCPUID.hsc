@@ -1,45 +1,21 @@
 module System.LibCPUID
   (
-  -- * 'CPUID'
-    CPUID(..), cpuid
-  , getTotalLogicalCores
+  -- * LibCPUID
+    cpuid
   , isCPUIDPresent
+  , getTotalLogicalCores
+  -- * Reexports
+  , CPUID(..)
   ) where
 
-import Foreign.C.String (peekCString)
-import Foreign.C.Types (CInt(..), CUChar(..))
-import Foreign.Marshal (allocaBytes, advancePtr)
-import Foreign.Ptr (Ptr, castPtr, plusPtr)
-import Foreign.Storable (Storable(..))
+import Foreign.C.Types (CInt(..))
+import Foreign.Marshal (allocaBytes)
+import Foreign.Ptr (Ptr)
+import Foreign.Storable (Storable(peek))
+import System.LibCPUID.CPUID (CPUID(..))
 
-
--- | CPU information and features.
-data CPUID = CPUID
-  { vendorString :: String
-  , brandString :: String
-  , hasTSC :: Bool
-  , physicalCores :: Int
-  , logicalCores :: Int
-  , totalLogicalCores :: Int
-  }
 
 #include "libcpuid.h"
-
-instance Storable CPUID where
-  alignment _ = #{alignment struct cpu_id_t}
-  sizeOf _ = #{size struct cpu_id_t}
-  peek ptr = do
-    vendorString <- peekCString $ plusPtr ptr #{offset struct cpu_id_t, vendor_str}
-    brandString <- peekCString $ plusPtr ptr #{offset struct cpu_id_t, brand_str}
-    hasTSC <-
-      let ptr' = advancePtr (castPtr @CPUID @CUChar ptr) #{const CPU_FEATURE_TSC}
-       in (/= 0) <$> peekElemOff ptr' #{offset struct cpu_id_t, flags}
-    physicalCores <- fromIntegral @CInt <$> #{peek struct cpu_id_t, num_cores} ptr
-    logicalCores <- fromIntegral @CInt <$> #{peek struct cpu_id_t, num_logical_cpus} ptr
-    totalLogicalCores <- fromIntegral @CInt <$> #{peek struct cpu_id_t, total_logical_cpus} ptr
-
-    pure CPUID {..}
-  poke _ _ = error "CPUID is read-only"
 
 -- | Get CPU information and features, or an error message, if the CPU can't be identified by libcpuid.
 cpuid :: IO (Either String CPUID)
