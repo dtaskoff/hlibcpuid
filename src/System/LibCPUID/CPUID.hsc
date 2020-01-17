@@ -1,3 +1,15 @@
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  System.LibCPUID.CPUID
+-- Copyright   :  (c) Daniel Taskoff, 2020
+-- License     :  MIT
+--
+-- Maintainer  :  daniel.taskoff@gmail.com
+-- Stability   :  experimental
+--
+-- A wrapper around __cpu_id_t__ from https://github.com/anrieff/libcpuid.
+-----------------------------------------------------------------------------
+
 module System.LibCPUID.CPUID
   (
   -- * 'CPUID'
@@ -14,11 +26,17 @@ import Foreign.Storable (Storable(..))
 -- | CPU information and features.
 data CPUID = CPUID
   { vendorString :: String
+    -- ^ CPU vendor string, e.g. \"GenuineIntel\".
   , brandString :: String
+    -- ^ CPU brand string, e.g. \"Intel(R) Core(TM) i5-7500 CPU @ 3.40GHz\".
   , hasTSC :: Bool
+    -- ^ Is a time-stamp counter available.
   , physicalCores :: Int
+    -- ^ Number of physical cores per processor.
   , logicalCores :: Int
+    -- ^ Number of logical cores per processor.
   , totalLogicalCores :: Int
+    -- ^ Total number of logical cores, which is 'logicalCores' multiplied by the number of processors.
   }
 
 #include "libcpuid.h"

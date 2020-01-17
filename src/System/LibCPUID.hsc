@@ -1,3 +1,31 @@
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  System.LibCPUID
+-- Copyright   :  (c) Daniel Taskoff, 2020
+-- License     :  MIT
+--
+-- Maintainer  :  daniel.taskoff@gmail.com
+-- Stability   :  experimental
+--
+-- Bindings to https://github.com/anrieff/libcpuid.
+--
+-- Currently implemented features:
+--
+-- > cpuid >>= \case
+-- >  Left err -> error err
+-- >  Right CPUID {..} -> do
+-- >    mapM_ putStrLn
+-- >      [ "Available CPU information"
+-- >      , "------------------------------------------"
+-- >      , "vendor string: " ++ vendorString
+-- >      , "brand string: " ++ brandString
+-- >      , "has a time-stamp counter (TSC): " ++  if hasTSC then "yes" else "no"
+-- >      , "# physical cores per processor: " ++ show physicalCores
+-- >      , "# logical cores per processor: " ++ show logicalCores
+-- >      , "# processors: " ++ show (div totalLogicalCores logicalCores)
+-- >      ]
+-----------------------------------------------------------------------------
+
 module System.LibCPUID
   (
   -- * LibCPUID
@@ -61,6 +89,9 @@ toMaybeError = \case
       _ -> "Unknown error"
 
 -- | Get the total number of logical cores (even if CPUID is not present).
+-- If CPUID is present, the following is true:
+--
+-- * @'getTotalLogicalCores' = 'totalLogicalCores' '<$>' 'cpuid'@
 getTotalLogicalCores :: IO Int
 getTotalLogicalCores = fromIntegral <$> c_cpuid_get_total_cpus
 

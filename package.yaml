@@ -4,7 +4,7 @@ github:              "dtaskoff/hlibcpuid"
 license:             MIT
 author:              "Daniel Taskoff"
 maintainer:          "daniel.taskoff@gmail.com"
-copyright:           "2020 Daniel Taskoff"
+copyright:           "2020 (c) Daniel Taskoff"
 
 synopsis:            Bindings to https://github.com/anrieff/libcpuid
 category:            Foreign, System
