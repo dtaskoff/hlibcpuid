@@ -40,6 +40,5 @@ library:
 
 ghc-options:
 - -Wall
-- -Werror
 - -fwarn-incomplete-uni-patterns
 - -fwarn-incomplete-record-updates
