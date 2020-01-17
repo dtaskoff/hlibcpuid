@@ -6,14 +6,17 @@ author:              "Daniel Taskoff"
 maintainer:          "daniel.taskoff@gmail.com"
 copyright:           "2020 Daniel Taskoff"
 
-extra-source-files:
-- README.md
-- ChangeLog.md
-
 synopsis:            Bindings to https://github.com/anrieff/libcpuid
 category:            Foreign, System
 
 description:         Please see the README on GitHub at <https://github.com/dtaskoff/hlibcpuid#readme>
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+data-files:
+- libcpuid/COPYING
 
 dependencies:
 - base >= 4.7 && < 5
@@ -27,6 +30,20 @@ default-extensions:
 library:
   source-dirs: src
   include-dirs: libcpuid/libcpuid
+
+  install-includes:
+  - libcpuid/libcpuid/amd_code_t.h
+  - libcpuid/libcpuid/asm-bits.h
+  - libcpuid/libcpuid/intel_code_t.h
+  - libcpuid/libcpuid/libcpuid.h
+  - libcpuid/libcpuid/libcpuid_constants.h
+  - libcpuid/libcpuid/libcpuid_internal.h
+  - libcpuid/libcpuid/libcpuid_types.h
+  - libcpuid/libcpuid/libcpuid_util.h
+  - libcpuid/libcpuid/rdtsc.h
+  - libcpuid/libcpuid/recog_amd.h
+  - libcpuid/libcpuid/recog_intel.h
+
   c-sources:
   - libcpuid/libcpuid/asm-bits.c
   - libcpuid/libcpuid/cpuid_main.c
@@ -36,6 +53,7 @@ library:
   - libcpuid/libcpuid/rdtsc.c
   - libcpuid/libcpuid/recog_amd.c
   - libcpuid/libcpuid/recog_intel.c
+
   cc-options: -DVERSION="0.4.1"
 
 ghc-options:
