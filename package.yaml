@@ -13,7 +13,7 @@ description:         Please see the README on GitHub at <https://github.com/dtas
 
 extra-source-files:
 - README.md
-- ChangeLog.md
+- CHANGELOG.md
 
 data-files:
 - libcpuid/COPYING
