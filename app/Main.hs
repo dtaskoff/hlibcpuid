@@ -15,6 +15,11 @@ main = do
   putStrLn "------------------------------------------"
   exampleTSC
 
+  putStrLn "------------------------------------------"
+  putStrLn "Other utilities"
+  putStrLn "------------------------------------------"
+  exampleUtilities
+
 exampleCPUID :: IO ()
 exampleCPUID = cpuid >>= \case
   Left err -> error err
@@ -34,8 +39,24 @@ exampleTSC = do
 
   mark tscMark
   let fib = scanl (+) 0 (1:fib)
-  putStrLn $ "The 1000th number in the Fibonacci sequence is " ++ show @Int (last (take 1000 fib))
+  putStrLn $ "The 1 000 000th number in the Fibonacci sequence is " ++ show @Int (last (take 1000000 fib))
   unmark tscMark
-  clock <- clockBy tscMark
+  frequency <- clockBy tscMark
 
-  putStrLn $ "calculated @" ++ show clock ++ "MHz"
+  putStrLn $ "calculated @" ++ show frequency ++ "MHz"
+
+exampleUtilities :: IO ()
+exampleUtilities = do
+  cores <- getTotalLogicalCores
+  putStrLn $ "Total number of logical cores: " ++ show cores
+
+  let putMHzLn str n = putStrLn $ str ++ show n ++ "MHz"
+
+  clockByOS >>= putMHzLn "clock by OS: "
+
+  let quadruple n = clockMeasure n (ShouldQuadCheck True)
+  quadruple 100 >>= putMHzLn "quadruple clock measure with a 100ms busy-wait cycle: "
+  quadruple 400 >>= putMHzLn "quadruple clock measure with a 400ms busy-wait cycle: "
+  quadruple 1000 >>= putMHzLn "quadruple clock measure with a 1000ms busy-wait cycle: "
+
+  clock >>= putMHzLn "a fall-back method clock: "
