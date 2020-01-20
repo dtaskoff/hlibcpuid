@@ -1,6 +1,4 @@
-# Changelog for hlibcpuid
-
-## Unreleased changes
+## 0.1.0.0
 * check the presence of CPUID
 * get CPU vendor string
 * get CPU brand string
@@ -8,3 +6,5 @@
 * get the number of physical cores per processor
 * get the number of logical cores per processor
 * get the total number of logical cores with, and without the presence of CPUID
+
+## Unreleased changes
