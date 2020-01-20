@@ -1,7 +1,6 @@
 module Main where
 
 import System.LibCPUID
-import System.LibCPUID.TSC
 
 
 main :: IO ()
