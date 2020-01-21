@@ -67,4 +67,3 @@ executables:
     source-dirs: app
 
     dependencies: hlibcpuid
-    ghc-options: -O2
