@@ -8,3 +8,6 @@
 * get the total number of logical cores with, and without the presence of CPUID
 
 ## Unreleased changes
+* measure CPU clock frequency using a time-stamp counter and time intervals
+* get CPU clock frequency as reported by the OS
+* measure CPU clock frequency using a busy-wait cycle
