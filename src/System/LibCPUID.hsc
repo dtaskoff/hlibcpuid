@@ -12,7 +12,9 @@
 -- Currently implemented:
 --
 -- * getting CPU vendor and brand strings, TSC availability, number of physical, and logical cores
--- * measuring CPU clock frequency using TSC
+-- * measuring CPU clock frequency using a time-stamp counter and time intervals
+-- * getting CPU clock frequency as reported by the OS
+-- * measuring CPU clock frequency using a busy-wait cycle
 -----------------------------------------------------------------------------
 
 module System.LibCPUID
