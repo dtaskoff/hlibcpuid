@@ -28,9 +28,9 @@ exampleCPUID = cpuid >>= \case
       [ "vendor string: " ++ vendorString
       , "brand string: " ++ brandString
       , "has a time-stamp counter (TSC): " ++  if hasTSC then "yes" else "no"
-      , "# physical cores per processor: " ++ show physicalCores
-      , "# logical cores per processor: " ++ show logicalCores
-      , "# processors: " ++ show (div totalLogicalCores logicalCores)
+      , "# of physical cores per processor: " ++ show physicalCores
+      , "# of logical cores per processor: " ++ show logicalCores
+      , "total # of logical cores: " ++ show totalLogicalCores
       ]
 
 exampleTSC :: IO ()

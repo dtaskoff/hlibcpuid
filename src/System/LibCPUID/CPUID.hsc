@@ -20,9 +20,9 @@
 -- >      , "vendor string: " ++ vendorString
 -- >      , "brand string: " ++ brandString
 -- >      , "has a time-stamp counter (TSC): " ++  if hasTSC then "yes" else "no"
--- >      , "# physical cores per processor: " ++ show physicalCores
--- >      , "# logical cores per processor: " ++ show logicalCores
--- >      , "# processors: " ++ show (div totalLogicalCores logicalCores)
+-- >      , "# of physical cores per processor: " ++ show physicalCores
+-- >      , "# of logical cores per processor: " ++ show logicalCores
+-- >      , "total # logical cores: " ++ show totalLogicalCores
 -- >      ]
 -----------------------------------------------------------------------------
 
@@ -51,9 +51,9 @@ data CPUID = CPUID
   , physicalCores :: Int
     -- ^ Number of physical cores per processor.
   , logicalCores :: Int
-    -- ^ Number of logical cores per processor.
+    -- ^ Number of logical cores per processor, regardless of whether or not hyper-threading is enabled.
   , totalLogicalCores :: Int
-    -- ^ Total number of logical cores, which is 'logicalCores' multiplied by the number of processors.
+    -- ^ Total number of logical cores being used at the moment. Takes hyper-threading into account.
   }
 
 #include "libcpuid.h"

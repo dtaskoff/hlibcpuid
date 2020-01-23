@@ -13,3 +13,4 @@
 * get the total number of logical cores with, and without the presence of CPUID
 
 ## Unreleased changes
+* update the documentation with an explanation, that the reported # of logical cores is not affected by whether or not hyper-threading is enabled
