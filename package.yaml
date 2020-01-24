@@ -11,7 +11,7 @@ category:            Foreign, System
 
 description:         Please see the README on GitHub at <https://github.com/dtaskoff/hlibcpuid#readme>
 
-extra-source-files:
+extra-doc-files:
 - README.md
 - CHANGELOG.md
 
