@@ -14,3 +14,4 @@
 
 ## Unreleased changes
 * update the documentation with an explanation, that the reported # of logical cores is not affected by whether or not hyper-threading is enabled
+* rename the example executable

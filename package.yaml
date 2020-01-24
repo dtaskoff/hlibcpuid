@@ -62,7 +62,7 @@ ghc-options:
 - -fwarn-incomplete-record-updates
 
 executables:
-  cpuid:
+  libcpuid-example:
     main: Main.hs
     source-dirs: app
 
